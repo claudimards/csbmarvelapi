@@ -1,6 +1,8 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+
+import { Footer } from '../components/Footer'
+import { Header } from '../components/Header'
 
 const Home: NextPage = () => {
   return (
@@ -11,17 +13,13 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header className={styles.footer}>
-        Header
-      </header>
+      <Header />
 
-      <main className={styles.main}>
+      <main className="main">
         <h1>Hello World!</h1>
       </main>
 
-      <footer className={styles.footer}>
-        Footer
-      </footer>
+      <Footer />
     </>
   )
 }

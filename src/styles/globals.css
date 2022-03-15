@@ -1,9 +1,13 @@
+:root {
+  --red-50: #EC1D24;
+  --black-50: #202020;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Bebas Neue', cursive, Helvetica Neue, sans-serif;
 }
 
 a {
@@ -15,6 +19,30 @@ a {
   box-sizing: border-box;
 }
 
-input {
+input, button {
   font-family: inherit;
+  margin: 0;
+  padding: 0.5rem;
+  border: 0;
+}
+
+button {
+  cursor: pointer;
+  line-height: 1;
+}
+
+.container {
+  max-width: 1470px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.main {
+  min-height: 100vh;
+  padding: 2rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
