@@ -5,8 +5,6 @@
 
 html,
 body {
-  padding: 0;
-  margin: 0;
   font-family: 'Bebas Neue', cursive, Helvetica Neue, sans-serif;
 }
 
@@ -17,6 +15,8 @@ a {
 
 * {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 input, button {
@@ -32,17 +32,16 @@ button {
 }
 
 .container {
-  max-width: 1470px;
+  max-width: 1240px;
   padding: 0 15px;
   margin: 0 auto;
 }
 
 .main {
-  min-height: 100vh;
-  padding: 2rem 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  min-height: calc(100vh - 96px - 51px);
+  padding: 1rem 0;
+}
+
+.pageTitle {
+  margin-bottom: 1rem;
 }
