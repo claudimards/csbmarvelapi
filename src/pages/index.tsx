@@ -13,13 +13,11 @@ const Home: NextPage = () => {
     <>
       <Head>
         <title>Mavel Heroes</title>
-        <meta name="description" content="Marvel Hereos web app developed by Claudimar Bezerra" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Header />
 
-      <main className="main">
+      <main className="main p1">
         <section className="container">
           <h1 className="pageTitle">The world's strongest heroes!</h1>
 

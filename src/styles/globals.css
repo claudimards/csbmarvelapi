@@ -39,9 +39,12 @@ button {
 
 .main {
   min-height: calc(100vh - 96px - 51px);
-  padding: 1rem 0;
 }
 
 .pageTitle {
   margin-bottom: 1rem;
+}
+
+.p1 {
+  padding: 1rem 0;
 }
