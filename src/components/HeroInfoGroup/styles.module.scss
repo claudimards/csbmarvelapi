@@ -1,0 +1,7 @@
+.heroInfos {
+  padding: 2rem;
+
+  & + .heroInfos {
+    border-top: 1px solid #e1e1e1
+  }
+}

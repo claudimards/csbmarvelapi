@@ -1,0 +1,10 @@
+.heroInfo {
+  h4 {
+    color: #767676;
+    letter-spacing: 1px;
+  }
+
+  & + .heroInfo {
+    margin-top: 1.5rem;
+  }
+}

@@ -1,0 +1,76 @@
+.heroCard {
+  color: #fff;
+  max-width: 100%;
+  transition: color .3s;
+  border-radius: 0 0 15px 0;
+  overflow: hidden;
+
+  .heroCardHeader {
+    position: relative;
+    z-index: 2;
+    
+    img {
+        transition: all .3s ease-in-out;
+      }
+  
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 100%;
+      height: 5px;
+      background: var(--red-50);
+      bottom: 0;
+      left: 0;
+    }
+
+    button {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      z-index: 2;
+      background: 0;
+      font-size: 30px;
+      padding: 0;
+      line-height: 0;
+      color: #fff;
+    }
+  } 
+
+  .heroCardContent {
+    padding: 16px 24px 17px 20px;
+    background: #151515;
+    height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    z-index: 0;
+
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      left: 0;
+      bottom: 100%;
+      width: 100%;
+      height: 110px;
+      background: var(--red-50);
+      transition: all .3s ease-in-out;
+    }
+  }
+
+  &:hover {
+    figure {
+      img {
+        transform: scale(1.1);
+      }
+    }
+
+    .heroCardContent {
+      &::before {
+        bottom: 0;
+      }
+    }
+  }
+}

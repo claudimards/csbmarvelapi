@@ -1,0 +1,29 @@
+.heroBanner {
+  position: relative;
+  z-index: 0;
+
+  .heroBio {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 1240px;
+    padding: 0 15px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #fff;
+
+    .heroName {
+      font-size: 2.5rem;
+      margin: 1.5rem 0;
+    }
+
+    p {
+      max-width: 50%;
+    }
+  }
+}

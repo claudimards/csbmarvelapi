@@ -41,10 +41,27 @@ button {
   min-height: calc(100vh - 96px - 51px);
 }
 
-.pageTitle {
+.topToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 1rem;
 }
 
 .p1 {
   padding: 1rem 0;
+}
+
+select {
+  appearance: none;
+  height: 29px;
+  width: 160px;
+  background: transparent;
+  border-radius: 5px;
+  padding: 0 10px;
+  background-image: url("/assets/icons/arrow.svg");
+  background-size: 8px;
+  background-repeat: no-repeat;
+  background-position-y: 50%;
+  background-position-x: calc(100% - 10px);
 }
