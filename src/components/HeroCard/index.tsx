@@ -4,17 +4,30 @@ import { RiShieldCrossLine } from 'react-icons/ri'
 
 import styles from './styles.module.scss'
 
-export const HeroCard = () => {
+type HeroProps = {
+  id: number;
+  name: string;
+  thumbnail: {
+    extension: string;
+    path: string;
+  }
+}
+
+type HeroType = {
+  hero: HeroProps;
+}
+
+export const HeroCard = ({ hero }: HeroType) => {
   return (
-    <Link href="/hero/drstrange">
+    <Link href={`/hero/${hero.id}`}>
       <a className={styles.heroCard}>
         <header className={styles.heroCardHeader}>
           <figure>
             <Image
-              src="/assets/images/drstrange.jpg"
+              src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}
               width="195"
               height="210"
-              alt="Doctor Strange"
+              alt={hero.name}
             />
           </figure>
 
@@ -24,11 +37,8 @@ export const HeroCard = () => {
         </header>
         <article className={styles.heroCardContent}>
           <h2 className="heroName">
-            Doctor Strange
+            {hero.name}
           </h2>
-          <h4 className="heroRealName">
-            Stephen Strange
-          </h4>
         </article>
       </a>
     </Link>

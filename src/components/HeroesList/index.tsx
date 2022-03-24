@@ -1,23 +1,28 @@
 import { HeroCard } from '../HeroCard'
 import styles from './styles.module.scss'
 
-export const HeroesList = () => {
+type Hero = {
+  id: number;
+  name: string;
+  thumbnail: {
+    extension: string;
+    path: string;
+  }
+}
+
+type HeroListTypes = {
+  heroes: Hero[];
+}
+
+export const HeroesList = ({ heroes }: HeroListTypes) => {
+
   return (
     <section className="container">
       <article className={styles.heroesList}>
 
-        <HeroCard />
-        <HeroCard />
-        <HeroCard />
-        <HeroCard />
-        <HeroCard />
-        <HeroCard />
-        <HeroCard />
-        <HeroCard />
-        <HeroCard />
-        <HeroCard />
-        <HeroCard />
-        <HeroCard />
+        {heroes.map(hero => (
+          <HeroCard key={hero.id} hero={hero} />
+        ))}
 
       </article>
     </section>
