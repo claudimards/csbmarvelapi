@@ -21,7 +21,10 @@ export const HeroesList = ({ heroes }: HeroListTypes) => {
       <article className={styles.heroesList}>
 
         {heroes.map(hero => (
-          <HeroCard key={hero.id} hero={hero} />
+          <HeroCard
+            key={hero.id}
+            hero={hero}
+          />
         ))}
 
       </article>

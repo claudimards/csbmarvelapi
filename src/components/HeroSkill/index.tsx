@@ -1,8 +1,8 @@
 import styles from "./styles.module.scss"
 
 type HeroSkillProps = {
-  skillPower: number;
-  skillName: string;
+  skillPower?: number;
+  skillName?: string;
 }
 
 export const HeroSkill = ({ skillPower, skillName }: HeroSkillProps) => {

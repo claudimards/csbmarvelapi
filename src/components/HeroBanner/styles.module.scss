@@ -2,6 +2,10 @@
   position: relative;
   z-index: 0;
 
+  img {
+    object-fit: cover;
+  }
+
   .heroBio {
     position: absolute;
     z-index: 1;
@@ -19,7 +23,7 @@
 
     .heroName {
       font-size: 2.5rem;
-      margin: 1.5rem 0;
+      margin: 0 0 1.5rem;
     }
 
     p {

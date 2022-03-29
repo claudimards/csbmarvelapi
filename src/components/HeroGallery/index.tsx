@@ -1,21 +1,33 @@
 import { GalleryItem } from "../GalleryItem"
 import styles from "./styles.module.scss"
 
-export const HeroGallery = () => {
+interface EventProps {
+  id: number;
+  title: string;
+  thumbnail: {
+    extension: string;
+    path: string;
+  }
+}
+
+type EventsType = {
+  events?: EventProps[]
+}
+
+export const HeroGallery = ({ events }: EventsType) => {
   return (
     <section className="container">
       <article className={styles.heroGallery}>
-        <h3>Gallery</h3>
+        <h3>Events Gallery</h3>
 
         <div className={styles.gallery}>
-          <GalleryItem />
-          <GalleryItem />
-          <GalleryItem />
-          <GalleryItem />
-          <GalleryItem />
-          <GalleryItem />
-          <GalleryItem />
-          <GalleryItem />
+          {events?.map(event => (
+            <GalleryItem
+              key={event.id}
+              title={event.title}
+              thumbnail={event.thumbnail}
+            />
+          ))}
         </div>
       </article>
     </section>

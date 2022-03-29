@@ -1,16 +1,56 @@
 import { HeroSkill } from "../HeroSkill"
 import styles from "./styles.module.scss"
 
-export const HeroSkillsList = () => {
+type HeroSkillsListType = {
+  comics?: {
+    title: string;
+    available: number;
+  };
+  events?: {
+    title: string;
+    available: number;
+  };
+  series?: {
+    title: string;
+    available: number;
+  };
+  stories?: {
+    title: string;
+    available: number;
+  }
+}
+
+export const HeroSkillsList = ({ comics, events, series, stories }: HeroSkillsListType) => {
   return (
     <section className="container">
       <article className={`${styles.heroSkills} p1`}>
-        <HeroSkill skillPower={3} skillName="DURABILITY" />
-        <HeroSkill skillPower={6} skillName="ENERGY" />
-        <HeroSkill skillPower={3} skillName="FIGHTING SKILLS" />
-        <HeroSkill skillPower={4} skillName="INTELLIGENCE" />
-        <HeroSkill skillPower={7} skillName="SPEED" />
-        <HeroSkill skillPower={2} skillName="STRENGTH" />
+        {!!comics?.available && (
+          <HeroSkill
+            skillPower={comics?.available}
+            skillName={comics?.title}
+          />
+        )}
+
+        {!!events?.available && (
+          <HeroSkill
+            skillPower={events?.available}
+            skillName={events?.title}
+          />
+        )}
+
+        {!!series?.available && (
+          <HeroSkill
+            skillPower={series?.available}
+            skillName={series?.title}
+          />
+        )}
+
+        {!!stories?.available && (
+          <HeroSkill
+            skillPower={stories?.available}
+            skillName={stories?.title}
+          />
+        )}
       </article>
     </section>
   )

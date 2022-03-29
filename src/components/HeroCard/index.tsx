@@ -19,7 +19,7 @@ type HeroType = {
 
 export const HeroCard = ({ hero }: HeroType) => {
   return (
-    <Link href={`/hero/${hero.id}`}>
+    <Link href={`/character/${hero.id}`}>
       <a className={styles.heroCard}>
         <header className={styles.heroCardHeader}>
           <figure>

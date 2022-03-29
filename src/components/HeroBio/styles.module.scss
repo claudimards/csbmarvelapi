@@ -1,20 +1,18 @@
 .heroBiograph {
-  display: grid;
-  grid-template-columns: 3fr 6fr 3fr;
   padding: 3rem 0 1.5rem;
 
   .left {
-    padding: 0 4rem 0 0;
-
     h2 {
-      padding-top: 1.5rem;
-      border-top: 1px solid;
-      letter-spacing: 1px;
-    }
+        display: inline-block;
+        border-bottom: 1px solid #000;
+        letter-spacing: 1px;
+      }
   }
 
   .content {
-    padding: 0 4rem;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
   }
 
   .right {
