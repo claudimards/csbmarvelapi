@@ -49,7 +49,7 @@ export const HeroBio = ({ comics, events, series, stories }: HeroBioType) => {
                 <h4>Last {comics.title}</h4>
                 <blockquote>
                   {comics.items.map(item => (
-                    <p>{item.name}</p>
+                    <p key={item.name}>{item.name}</p>
                   ))}
                 </blockquote>
               </div>
@@ -60,7 +60,7 @@ export const HeroBio = ({ comics, events, series, stories }: HeroBioType) => {
                 <h4>Last {events.title}</h4>
                 <blockquote>
                   {events.items.map(item => (
-                    <p>{item.name}</p>
+                    <p key={item.name}>{item.name}</p>
                   ))}
                 </blockquote>
               </div>
@@ -71,7 +71,7 @@ export const HeroBio = ({ comics, events, series, stories }: HeroBioType) => {
                 <h4>Last {series.title}</h4>
                 <blockquote>
                   {series.items.map(item => (
-                    <p>{item.name}</p>
+                    <p key={item.name}>{item.name}</p>
                   ))}
                 </blockquote>
               </div>
@@ -82,7 +82,7 @@ export const HeroBio = ({ comics, events, series, stories }: HeroBioType) => {
                 <h4>Last {stories.title}</h4>
                 <blockquote>
                   {stories.items.map(item => (
-                    <p>{item.name}</p>
+                    <p key={item.name}>{item.name}</p>
                   ))}
                 </blockquote>
               </div>
