@@ -20,3 +20,13 @@
     height: max-content;
   }
 }
+
+@media screen and (max-width: 767px) {
+  .heroBiograph {
+    .content {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+  }
+}

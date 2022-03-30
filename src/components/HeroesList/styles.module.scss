@@ -1,9 +1,22 @@
 .heroesList {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(15.82%,1fr));
+  grid-template-columns: repeat(6, 1fr);
   transition: max-height 1s ease-out;
   overflow: hidden;
   grid-column-gap: 10px;
   grid-row-gap: 30px;
   margin-bottom: 1rem;
+
+}
+
+@media screen and (max-width: 991px) {
+  .heroesList {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .heroesList {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

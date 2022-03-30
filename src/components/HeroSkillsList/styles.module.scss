@@ -4,3 +4,11 @@
   justify-content: space-evenly;
   text-align: center;
 }
+
+@media screen and (max-width: 575px) {
+  .heroSkills {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 30px;
+  }
+}
