@@ -16,12 +16,10 @@ const SearchResults: NextPage = () => {
   let query = asPath.split('=')[1]
   let queryToFetch = query
 
-  if (query.includes('%20')) {
+  if (query?.includes('%20')) {
     query = query.replaceAll('%20', ' ')
     queryToFetch = queryToFetch.split('%20')[0]
   }
-
-  console.log(query)
 
   const fetchSearch = async () => {
     try {
