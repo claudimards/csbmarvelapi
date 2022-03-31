@@ -11,14 +11,19 @@ import { Footer } from '../components/Footer'
 
 const Home: NextPage = () => {
   const fetchCharacters = async () => {
-    const response = await api.get('v1/public/characters', {
-      params: {
-        limit: 18
-      }
-    })
-    const { data } = response.data
-
-    return data
+    try {
+      const response = await api.get('v1/public/characters', {
+        params: {
+          limit: 18
+        }
+      })
+      const { data } = response.data
+  
+      return data
+      
+    } catch (error) {
+      alert(`Something went wrong!\nError.: ${error}`)  
+    }
   }
 
   const { isLoading, isError, data, error } = useQuery('characters', fetchCharacters)
@@ -26,7 +31,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Mavel Heroes</title>
+        <title>Mavel Chars</title>
       </Head>
 
       <Header />
@@ -44,7 +49,7 @@ const Home: NextPage = () => {
           
         ) : (
           <>
-            <TopToolbar />
+            <TopToolbar title="The world&apos;s strongest characters!" activeOrderBy={data.results.length > 1} />
     
             <HeroesList heroes={data.results} />
     

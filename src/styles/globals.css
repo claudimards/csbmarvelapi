@@ -60,6 +60,10 @@ button {
   padding: 1rem 0;
 }
 
+.not-found h4 {
+  margin: 1rem 0 0;
+}
+
 select {
   appearance: none;
   height: 29px;

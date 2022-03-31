@@ -1,12 +1,19 @@
 import { OrderBy } from "../OrderBy"
 
-export const TopToolbar = () => {
+type TopToolbarProps = {
+  title: string;
+  activeOrderBy: boolean;
+}
+
+export const TopToolbar = ({ title, activeOrderBy }: TopToolbarProps) => {
   return (
     <section className="container">
       <div className="topToolbar">
-        <h1 className="pageTitle">The world&apos;s strongest heroes!</h1>
+        <h1 className="pageTitle">{title}</h1>
 
-        <OrderBy />
+        {activeOrderBy && (
+          <OrderBy />
+        )}
       </div>
     </section>
   )
