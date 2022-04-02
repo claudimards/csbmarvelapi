@@ -8,8 +8,15 @@ import { TopToolbar } from '../components/TopToolbar'
 import { HeroesList } from '../components/HeroesList'
 import { BottomToolbar } from '../components/BottomToolbar'
 import { Footer } from '../components/Footer'
+import { useState } from 'react'
 
 const Home: NextPage = () => {
+  const [orderBy, setOrderBy] = useState('nameAsc')
+
+  const handleOrderBy = (orderType: string) => {
+    setOrderBy(orderType)
+  }
+
   const fetchCharacters = async () => {
     try {
       const response = await api.get('v1/public/characters', {
@@ -49,9 +56,13 @@ const Home: NextPage = () => {
           
         ) : (
           <>
-            <TopToolbar title="The world&apos;s strongest characters!" activeOrderBy={data.results.length > 1} />
+            <TopToolbar
+              title="The world&apos;s strongest characters!"
+              activeOrderBy={data.results.length > 1}
+              handleOrderBy={handleOrderBy}
+            />
     
-            <HeroesList heroes={data.results} />
+            <HeroesList heroes={data.results} orderBy={orderBy} />
     
             <BottomToolbar />
           </>
