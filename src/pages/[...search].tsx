@@ -2,6 +2,7 @@ import { NextPage } from "next"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
+import { useState } from "react"
 import { IoArrowUndoOutline } from "react-icons/io5"
 import { useQuery } from "react-query"
 import { Footer } from "../components/Footer"
@@ -40,6 +41,12 @@ const SearchResults: NextPage = () => {
 
   const { isLoading, isError, data, error } = useQuery(`${query}`, fetchSearch)
 
+  const [orderBy, setOrderBy] = useState('nameAsc')
+
+  const handleOrderBy = (orderType: string) => {
+    setOrderBy(orderType)
+  }
+
   return (
     <>
       <Head>
@@ -66,6 +73,7 @@ const SearchResults: NextPage = () => {
             <TopToolbar
               title={`Search results for.: ${query}`}
               activeOrderBy={!!data.length}
+              handleOrderBy={handleOrderBy}
             />
 
             <section className="container not-found">
@@ -82,11 +90,12 @@ const SearchResults: NextPage = () => {
         ) : (
           <>
             <TopToolbar
+              handleOrderBy={handleOrderBy}
               title={`Search results for.: ${query}`}
               activeOrderBy={data.length > 1}
             />
 
-            <HeroesList heroes={data} />
+            <HeroesList heroes={data} orderBy={orderBy} />
           </>
         )}
       </main>
