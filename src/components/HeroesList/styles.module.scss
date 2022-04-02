@@ -5,18 +5,22 @@
   overflow: hidden;
   grid-column-gap: 10px;
   grid-row-gap: 30px;
-  margin-bottom: 1rem;
 
-}
+  & + .heroesList {
+    padding-top: 2rem;
+    margin-top: 2rem;
+    border-top: 1px solid #000;
+  }
 
-@media screen and (max-width: 991px) {
-  .heroesList {
+  &:last-child {
+    margin-bottom: 1rem;
+  }
+  
+  @media screen and (max-width: 991px) {
     grid-template-columns: repeat(3, 1fr);
   }
-}
-
-@media screen and (max-width: 575px) {
-  .heroesList {
+  
+  @media screen and (max-width: 575px) {
     grid-template-columns: repeat(2, 1fr);
   }
 }
