@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -16,18 +16,18 @@ type Char = {
 }
 
 type CharListTypes = {
-  heroes: Char[];
+  charList: Char[];
+  handleCharList: (list: Char[]) => void;
+  favoritesCharacters?: Char[] | undefined;
+  handleFavoritesCharaters: (list: Char[] | undefined) => void;
   orderBy: string;
 }
 
-export const HeroesList = ({ heroes, orderBy }: CharListTypes) => {
-  const [charList, setCharList] = useState<Char[]>(heroes)
-  const [favoritesCharacters, setFavoritesCharacters] = useState<Char[]>([])
-
+export const HeroesList = ({ charList, handleCharList, orderBy, favoritesCharacters, handleFavoritesCharaters }: CharListTypes) => {
   // FUNCTION TO HANDLE FAVORITE CHARS
   const handleFavoriteChar = (char: Char) => {
     // CHECK IF CHAR ALREADY IS IN FAVORITES
-    const alreadyFavorite = favoritesCharacters?.some(fav => {
+    const alreadyFavorite = favoritesCharacters?.some((fav: Char) => {
       return fav.id === char.id
     })
 
@@ -37,7 +37,7 @@ export const HeroesList = ({ heroes, orderBy }: CharListTypes) => {
       const confirmAnswer = confirm('Remove character from Favorites?')
 
       if ( confirmAnswer ) {
-        const newFavoritesChars = favoritesCharacters.filter(currentChar => currentChar.id !== char.id).map(currentChar => {
+        const newFavoritesChars = favoritesCharacters?.filter(currentChar => currentChar.id !== char.id).map(currentChar => {
           return {
             name: currentChar.name,
             id: currentChar.id,
@@ -46,7 +46,7 @@ export const HeroesList = ({ heroes, orderBy }: CharListTypes) => {
           }
         })
 
-        setFavoritesCharacters(newFavoritesChars)
+        handleFavoritesCharaters(newFavoritesChars)
         toast.success('Character successfuly removed')
 
         const newCharListState = charList.map((currentChar : Char) => {
@@ -59,7 +59,7 @@ export const HeroesList = ({ heroes, orderBy }: CharListTypes) => {
           return currentChar
         })
 
-        setCharList(newCharListState)
+        handleCharList(newCharListState)
         return
       }
 
@@ -71,7 +71,7 @@ export const HeroesList = ({ heroes, orderBy }: CharListTypes) => {
       const confirmAnswer = confirm('Add character to Favorites?')
 
       if (confirmAnswer) {
-        setFavoritesCharacters((prevState) => {
+        handleFavoritesCharaters((prevState: Char[]) => {
           return [
             ...prevState,
             {
@@ -94,7 +94,7 @@ export const HeroesList = ({ heroes, orderBy }: CharListTypes) => {
           return currentChar
         })
 
-        setCharList(newCharListState)
+        handleCharList(newCharListState)
 
         // REMOVE FAVORITED CHARS FROM MAIN LIST
         /* const newCharlist = charList.filter(currentChar => currentChar.id !== char.id).map(currentChar => {
@@ -125,13 +125,12 @@ export const HeroesList = ({ heroes, orderBy }: CharListTypes) => {
           isFavorite: char.isFavorite
         }
       })
-
       
       newCharListOrder.sort(function (currentChar: Char, nextChar: Char) {
         return nextChar.name.localeCompare(currentChar.name);
       });
       
-      setCharList(newCharListOrder)
+      handleCharList(newCharListOrder)
       
     } else {
       let newCharListOrder = charList.map((char: Char) => {
@@ -143,12 +142,11 @@ export const HeroesList = ({ heroes, orderBy }: CharListTypes) => {
         }
       })
 
-      
       newCharListOrder.sort(function (currentChar: Char, nextChar: Char) {
         return currentChar.name.localeCompare(nextChar.name);
       });
       
-      setCharList(newCharListOrder)
+      handleCharList(newCharListOrder)
     }
   }, [orderBy])
 

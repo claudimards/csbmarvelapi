@@ -2,13 +2,29 @@ import { Counter } from '../Counter'
 import { Paginator } from '../Paginator'
 import styles from './styles.module.scss'
 
-export const BottomToolbar = () => {
+type BottomToolbarType = {
+  total: number;
+  count: number;
+  offset: number;
+  limit: number;
+  page: number;
+  handleOffset: (offset: number) => void;
+  onPageChange: (page: number) => void
+}
+
+export const BottomToolbar = ({ total, count, offset, limit, handleOffset, page, onPageChange }: BottomToolbarType) => {
   return (
     <section className="container">
       <article className={styles.bottomToolbar}>
-        <Paginator />
+        <Paginator
+          currentPage={page}
+          onPageChange={onPageChange}
+          total={total}
+          limit={limit}
+          handleOffset={handleOffset}
+        />
 
-        <Counter />
+        <Counter total={total} count={offset + count} offset={offset} />
       </article>
     </section>
   )

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useQuery } from 'react-query'
@@ -8,10 +9,23 @@ import { TopToolbar } from '../components/TopToolbar'
 import { HeroesList } from '../components/HeroesList'
 import { BottomToolbar } from '../components/BottomToolbar'
 import { Footer } from '../components/Footer'
-import { useState } from 'react'
+
+type Char = {
+  id: number;
+  name: string;
+  thumbnail: {
+    extension: string;
+    path: string;
+  };
+  isFavorite?: boolean | undefined;
+}
 
 const Home: NextPage = () => {
+  const [charList, setCharList] = useState<Char[]>([])
+  const [favoritesCharacters, setFavoritesCharacters] = useState<Char[] | undefined>([])
   const [orderBy, setOrderBy] = useState('nameAsc')
+  const [offset, setOffset] = useState(0)
+  const [page, setPage] = useState(1)
 
   const handleOrderBy = (orderType: string) => {
     setOrderBy(orderType)
@@ -21,11 +35,13 @@ const Home: NextPage = () => {
     try {
       const response = await api.get('v1/public/characters', {
         params: {
-          limit: 18
+          limit: 18,
+          offset: offset
         }
       })
       const { data } = response.data
-  
+
+      setCharList(data.results)
       return data
       
     } catch (error) {
@@ -33,7 +49,7 @@ const Home: NextPage = () => {
     }
   }
 
-  const { isLoading, isError, data, error } = useQuery('characters', fetchCharacters)
+  const { isLoading, isError, data, error } = useQuery(['characters', page], fetchCharacters)
 
   return (
     <>
@@ -59,12 +75,27 @@ const Home: NextPage = () => {
             <TopToolbar
               title="The world&apos;s strongest characters!"
               activeOrderBy={data.results.length > 1}
+              orderBy={orderBy}
               handleOrderBy={handleOrderBy}
             />
     
-            <HeroesList heroes={data.results} orderBy={orderBy} />
+            <HeroesList
+              charList={charList}
+              handleCharList={setCharList}
+              favoritesCharacters={favoritesCharacters}
+              handleFavoritesCharaters={setFavoritesCharacters}
+              orderBy={orderBy}
+            />
     
-            <BottomToolbar />
+            <BottomToolbar
+              total={data.total}
+              count={data.count}
+              offset={data.offset}
+              limit={data.limit}
+              handleOffset={setOffset}
+              page={page}
+              onPageChange={setPage}
+            />
           </>
         )}
       </main>

@@ -5,13 +5,30 @@ import { useRouter } from "next/router"
 import { useState } from "react"
 import { IoArrowUndoOutline } from "react-icons/io5"
 import { useQuery } from "react-query"
+import { BottomToolbar } from "../components/BottomToolbar"
 import { Footer } from "../components/Footer"
 import { Header } from "../components/Header"
 import { HeroesList } from "../components/HeroesList"
 import { TopToolbar } from "../components/TopToolbar"
 import { api } from "../services/api"
 
+type Char = {
+  id: number;
+  name: string;
+  thumbnail: {
+    extension: string;
+    path: string;
+  };
+  isFavorite?: boolean | undefined;
+}
+
 const SearchResults: NextPage = () => {
+  const [charList, setCharList] = useState<Char[]>([])
+  const [favoritesCharacters, setFavoritesCharacters] = useState<Char[] | undefined>([])
+
+  const [offset, setOffset] = useState(0)
+  const [page, setPage] = useState(1)
+
   const router = useRouter()
   const { asPath } = router
   let query = asPath.split('=')[1]
@@ -27,19 +44,22 @@ const SearchResults: NextPage = () => {
       const searchResponse = await api.get('/v1/public/characters', {
         params: {
           nameStartsWith: queryToFetch,
-          limit: 18
+          limit: 18,
+          offset: offset
         }
       })
-      const { results } = searchResponse.data.data
+      const { data } = searchResponse.data
 
-      return results
+      setCharList(data.results)
+      console.log(data)
+      return data
       
     } catch (error) {
       alert(`Something went wrong!\nError.: ${error}`)  
     }
   }
 
-  const { isLoading, isError, data, error } = useQuery(`${query}`, fetchSearch)
+  const { isLoading, isError, data, error } = useQuery([`${query}`, page], fetchSearch)
 
   const [orderBy, setOrderBy] = useState('nameAsc')
 
@@ -68,12 +88,13 @@ const SearchResults: NextPage = () => {
           <section className="container error">
             <h3>Failed to load search results! :(</h3>
           </section>
-        ) : !data.length ? (
+        ) : !data.results.length ? (
           <>
             <TopToolbar
               title={`Search results for.: ${query}`}
-              activeOrderBy={!!data.length}
+              activeOrderBy={!!data.results.length}
               handleOrderBy={handleOrderBy}
+              orderBy={orderBy}
             />
 
             <section className="container not-found">
@@ -91,11 +112,30 @@ const SearchResults: NextPage = () => {
           <>
             <TopToolbar
               handleOrderBy={handleOrderBy}
+              orderBy={orderBy}
               title={`Search results for.: ${query}`}
-              activeOrderBy={data.length > 1}
+              activeOrderBy={data.results.length > 1}
             />
 
-            <HeroesList heroes={data} orderBy={orderBy} />
+            <HeroesList
+              handleCharList={setCharList}
+              favoritesCharacters={favoritesCharacters}
+              handleFavoritesCharaters={setFavoritesCharacters}
+              charList={charList}
+              orderBy={orderBy}
+            />
+
+            {data.offset < data.total && (
+              <BottomToolbar
+                total={data.total}
+                count={data.count}
+                offset={data.offset}
+                limit={data.limit}
+                handleOffset={setOffset}
+                page={page}
+                onPageChange={setPage}
+              />
+            )}
           </>
         )}
       </main>

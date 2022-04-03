@@ -1,7 +1,13 @@
-export const Counter = () => {
+type CounterType = {
+  total: number;
+  count: number;
+  offset: number;
+}
+
+export const Counter = ({ total, count, offset }: CounterType) => {
   return (
     <div className="counter">
-      Exibindo 1 - 12 de 120
+      Exibindo {offset + 1} - {count} de {total}
     </div>
   )
 }
