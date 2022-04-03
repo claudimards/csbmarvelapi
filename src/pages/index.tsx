@@ -22,7 +22,7 @@ type Char = {
 
 const Home: NextPage = () => {
   const [charList, setCharList] = useState<Char[]>([])
-  const [favoritesCharacters, setFavoritesCharacters] = useState<Char[] | undefined>([])
+  const [favoritesCharacters, setFavoritesCharacters] = useState<Char[] | []>([])
   const [orderBy, setOrderBy] = useState('nameAsc')
   const [offset, setOffset] = useState(0)
   const [page, setPage] = useState(1)
