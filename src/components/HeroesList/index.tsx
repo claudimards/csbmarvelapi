@@ -19,7 +19,7 @@ type CharListTypes = {
   charList: Char[];
   handleCharList: (list: Char[]) => void;
   favoritesCharacters: Char[] | [];
-  handleFavoritesCharaters: (list: Char[] | undefined) => void;
+  handleFavoritesCharaters: (list: Char[] | []) => void;
   orderBy: string;
 }
 

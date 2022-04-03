@@ -24,7 +24,7 @@ type Char = {
 
 const SearchResults: NextPage = () => {
   const [charList, setCharList] = useState<Char[]>([])
-  const [favoritesCharacters, setFavoritesCharacters] = useState<Char[] | undefined>([])
+  const [favoritesCharacters, setFavoritesCharacters] = useState<Char[] | []>([])
 
   const [offset, setOffset] = useState(0)
   const [page, setPage] = useState(1)
