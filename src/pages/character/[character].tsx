@@ -150,7 +150,7 @@ const Hero: NextPage = () => {
               stories={data?.char.stories}
             />
 
-            {data?.events.length && (
+            {!!data?.events.length && (
               <HeroGallery events={data?.events} />
             )}
           </>

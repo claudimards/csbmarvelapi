@@ -18,7 +18,7 @@ type Char = {
 type CharListTypes = {
   charList: Char[];
   handleCharList: (list: Char[]) => void;
-  favoritesCharacters?: Char[] | undefined;
+  favoritesCharacters: Char[] | [];
   handleFavoritesCharaters: (list: Char[] | undefined) => void;
   orderBy: string;
 }
@@ -71,15 +71,15 @@ export const HeroesList = ({ charList, handleCharList, orderBy, favoritesCharact
       const confirmAnswer = confirm('Add character to Favorites?')
 
       if (confirmAnswer) {
-        handleFavoritesCharaters((prevState: Char[]) => {
-          return [
-            ...prevState,
+        handleFavoritesCharaters(
+          [
+            ...favoritesCharacters,
             {
               ...char,
               isFavorite: true
             }
           ]
-        })
+        )
 
         toast.success('Character successfuly added to Favorites!')
 
