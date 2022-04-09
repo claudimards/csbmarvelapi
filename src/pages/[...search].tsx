@@ -5,27 +5,16 @@ import { useRouter } from "next/router"
 import { useState } from "react"
 import { IoArrowUndoOutline } from "react-icons/io5"
 import { useQuery } from "react-query"
+
 import { BottomToolbar } from "../components/BottomToolbar"
 import { Footer } from "../components/Footer"
 import { Header } from "../components/Header"
 import { HeroesList } from "../components/HeroesList"
 import { TopToolbar } from "../components/TopToolbar"
+
 import { api } from "../services/api"
 
-type Char = {
-  id: number;
-  name: string;
-  thumbnail: {
-    extension: string;
-    path: string;
-  };
-  isFavorite?: boolean | undefined;
-}
-
 const SearchResults: NextPage = () => {
-  const [charList, setCharList] = useState<Char[]>([])
-  const [favoritesCharacters, setFavoritesCharacters] = useState<Char[] | []>([])
-
   const [offset, setOffset] = useState(0)
   const [page, setPage] = useState(1)
 
@@ -50,8 +39,6 @@ const SearchResults: NextPage = () => {
       })
       const { data } = searchResponse.data
 
-      setCharList(data.results)
-      console.log(data)
       return data
       
     } catch (error) {
@@ -59,7 +46,7 @@ const SearchResults: NextPage = () => {
     }
   }
 
-  const { isLoading, isError, data, error } = useQuery([`${query}`, page], fetchSearch)
+  const { isLoading, isError, data } = useQuery([`${query}`, page], fetchSearch)
 
   const [orderBy, setOrderBy] = useState('nameAsc')
 
@@ -111,17 +98,14 @@ const SearchResults: NextPage = () => {
         ) : (
           <>
             <TopToolbar
-              handleOrderBy={handleOrderBy}
-              orderBy={orderBy}
               title={`Search results for.: ${query}`}
               activeOrderBy={data.results.length > 1}
+              handleOrderBy={handleOrderBy}
+              orderBy={orderBy}
             />
 
             <HeroesList
-              handleCharList={setCharList}
-              favoritesCharacters={favoritesCharacters}
-              handleFavoritesCharaters={setFavoritesCharacters}
-              charList={charList}
+              charListData={data.results}
               orderBy={orderBy}
             />
 

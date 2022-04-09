@@ -5,6 +5,7 @@
   overflow: hidden;
   grid-column-gap: 10px;
   grid-row-gap: 30px;
+  min-height: 676px;
 
   & + .heroesList {
     padding-top: 2rem;

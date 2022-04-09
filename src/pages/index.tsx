@@ -10,19 +10,7 @@ import { HeroesList } from '../components/HeroesList'
 import { BottomToolbar } from '../components/BottomToolbar'
 import { Footer } from '../components/Footer'
 
-type Char = {
-  id: number;
-  name: string;
-  thumbnail: {
-    extension: string;
-    path: string;
-  };
-  isFavorite?: boolean | undefined;
-}
-
 const Home: NextPage = () => {
-  const [charList, setCharList] = useState<Char[]>([])
-  const [favoritesCharacters, setFavoritesCharacters] = useState<Char[] | []>([])
   const [orderBy, setOrderBy] = useState('nameAsc')
   const [offset, setOffset] = useState(0)
   const [page, setPage] = useState(1)
@@ -41,7 +29,6 @@ const Home: NextPage = () => {
       })
       const { data } = response.data
 
-      setCharList(data.results)
       return data
       
     } catch (error) {
@@ -49,7 +36,7 @@ const Home: NextPage = () => {
     }
   }
 
-  const { isLoading, isError, data, error } = useQuery(['characters', page], fetchCharacters)
+  const { isLoading, isError, data } = useQuery(['characters', page], fetchCharacters)
 
   return (
     <>
@@ -80,10 +67,7 @@ const Home: NextPage = () => {
             />
     
             <HeroesList
-              charList={charList}
-              handleCharList={setCharList}
-              favoritesCharacters={favoritesCharacters}
-              handleFavoritesCharaters={setFavoritesCharacters}
+              charListData={data.results}
               orderBy={orderBy}
             />
     

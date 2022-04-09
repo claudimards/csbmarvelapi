@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { useContext } from 'react'
 import { BsShieldPlus, BsShieldMinus } from 'react-icons/bs'
+import { CharContext } from '../../contexts/CharContext'
 
 import styles from './styles.module.scss'
 
@@ -11,33 +13,20 @@ type CharProps = {
     extension: string;
     path: string;
   };
-}
-
-type Char = {
-  char: CharProps;
-  handleFavoriteChar: (char: {
-    id: number,
-    name: string,
-    thumbnail: {
-      extension: string;
-      path: string;
-    }
-  }) => void;
   isFavorite?: boolean | undefined;
 }
 
-export const HeroCard = ({ char, handleFavoriteChar, isFavorite }: Char) => {
+type Char = {
+  char: CharProps;  
+}
+
+export const HeroCard = ({ char }: Char) => {
+  const { handleFavoriteChar } = useContext(CharContext)
+
   return (
     <div className={styles.heroCard}>
-      <button type="button" title="Add to bookmark" onClick={() => handleFavoriteChar({
-        id: char.id,
-        name: char.name,
-        thumbnail: {
-          extension: char.thumbnail.extension,
-          path: char.thumbnail.path
-        }
-      })}>
-        {isFavorite ? ( <BsShieldMinus /> ) : ( <BsShieldPlus /> )}
+      <button type="button" title="Add to bookmark" onClick={() => handleFavoriteChar(char)}>
+        {char.isFavorite ? ( <BsShieldMinus /> ) : ( <BsShieldPlus /> )}
       </button>
       <Link href={`/character/${char.id}`}>
         <a>
