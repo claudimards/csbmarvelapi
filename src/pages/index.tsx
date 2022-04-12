@@ -11,13 +11,8 @@ import { BottomToolbar } from '../components/BottomToolbar'
 import { Footer } from '../components/Footer'
 
 const Home: NextPage = () => {
-  const [orderBy, setOrderBy] = useState('nameAsc')
   const [offset, setOffset] = useState(0)
   const [page, setPage] = useState(1)
-
-  const handleOrderBy = (orderType: string) => {
-    setOrderBy(orderType)
-  }
 
   const fetchCharacters = async () => {
     try {
@@ -62,13 +57,10 @@ const Home: NextPage = () => {
             <TopToolbar
               title="The world&apos;s strongest characters!"
               activeOrderBy={data.results.length > 1}
-              orderBy={orderBy}
-              handleOrderBy={handleOrderBy}
             />
     
             <HeroesList
               charListData={data.results}
-              orderBy={orderBy}
             />
     
             <BottomToolbar

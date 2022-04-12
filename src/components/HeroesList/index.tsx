@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { CharContext } from '../../contexts/CharContext';
 
 import { HeroCard } from '../HeroCard'
 import styles from './styles.module.scss'
@@ -17,15 +18,15 @@ type Char = {
 
 type CharListTypes = {
   charListData: Char[];
-  orderBy: string;
 }
 
-export const HeroesList = ({ charListData, orderBy }: CharListTypes) => {
+export const HeroesList = ({ charListData }: CharListTypes) => {
+  const { orderBy } = useContext(CharContext)
   const [charList, setCharList] = useState<Char[]>(charListData)
-  // EFFECT WHEN ORDER BY CHANGE
-  useEffect(() => {
-    if ( orderBy === 'nameDesc' ) {
-      let newCharListOrder = charList.map((char: Char) => {
+
+  const handleOrderList = (order: string, list: Char[] | []) => {
+    if ( order === 'nameDesc' ) {
+      let newCharListOrder = list.map((char: Char) => {
         return {
           name: char.name,
           id: char.id,
@@ -41,7 +42,7 @@ export const HeroesList = ({ charListData, orderBy }: CharListTypes) => {
       setCharList(newCharListOrder)
       
     } else {
-      let newCharListOrder = charList.map((char: Char) => {
+      let newCharListOrder = list.map((char: Char) => {
         return {
           name: char.name,
           id: char.id,
@@ -56,11 +57,17 @@ export const HeroesList = ({ charListData, orderBy }: CharListTypes) => {
       
       setCharList(newCharListOrder)
     }
-  }, [orderBy])
+  }
 
+  // EFFECT WHEN CHAR LIST CHANGES
   useEffect(() => {
-    setCharList(charListData)
-  }, charList)
+    handleOrderList(orderBy, charListData)
+  }, [charListData])
+  
+  // EFFECT WHEN ORDER BY CHANGE
+  useEffect(() => {
+    handleOrderList(orderBy, charList)
+  }, [orderBy])
 
   return (
     <section className="container">

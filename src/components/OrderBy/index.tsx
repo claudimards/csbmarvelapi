@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { CharContext } from "../../contexts/CharContext";
+
 type OrderByType = {
   handleOrderBy: (orderType: string) => void;
   orderBy: string;
@@ -19,10 +22,11 @@ const OrderByOptions = [
   }
 ]
 
-export const OrderBy = ({ handleOrderBy, orderBy }: OrderByType) => {
+export const OrderBy = () => {
+  const { orderBy, setOrderBy } = useContext(CharContext)
 
   return (
-    <select name="orderby" onChange={e => handleOrderBy(e.target.value)} defaultValue={orderBy}>
+    <select name="orderby" onChange={e => setOrderBy(e.target.value)} defaultValue={orderBy}>
       {OrderByOptions.map((option: OrderByOptionsType) => (
         <option
           key={option.id}

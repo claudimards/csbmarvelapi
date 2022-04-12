@@ -13,7 +13,10 @@ type Char = {
 
 type CharContextType = {
   handleFavoriteChar: (char: Char) => void;
-  favoritesCharacters: Char[] | [];
+  favoritesCharacters: [] | Char[];
+  favCount: number;
+  orderBy: string;
+  setOrderBy: (orderBy: string) => void;
 }
 
 type CharContextProviderProps = {
@@ -23,7 +26,10 @@ type CharContextProviderProps = {
 export const CharContext = createContext({} as CharContextType)
 
 export const CharContextProvider = ({ children }: CharContextProviderProps) => {
-  const [favoritesCharacters, setFavoritesCharacters] = useState<Char[] | []>([])
+  const [orderBy, setOrderBy] = useState<string>('nameAsc');
+  const [favoritesCharacters, setFavoritesCharacters] = useState<[] | Char[]>([])
+  let favCount = favoritesCharacters?.length
+
 
   // FUNCTION TO HANDLE FAVORITE CHARS
   const handleFavoriteChar = (char: Char) => {
@@ -40,10 +46,8 @@ export const CharContextProvider = ({ children }: CharContextProviderProps) => {
       if ( confirmAnswer ) {
         const newFavoritesChars = favoritesCharacters?.filter((currentChar: Char) => currentChar.id !== char.id).map((currentChar: Char) => {
           return {
-            name: currentChar.name,
-            id: currentChar.id,
-            thumbnail: currentChar.thumbnail,
-            isFavorite: false
+            ...currentChar,
+            isFavorite: true
           }
         })
 
@@ -62,18 +66,18 @@ export const CharContextProvider = ({ children }: CharContextProviderProps) => {
 
       if (confirmAnswer) {
         setFavoritesCharacters(
-          [
-            ...favoritesCharacters,
-            {
-              ...char,
-              isFavorite: true
-            }
-          ]
+          (state) => {
+            return [
+              ...state,
+              {
+                ...char,
+                isFavorite: true
+              }
+            ]
+          }
         )
 
-        toast.success('Character successfuly added to Favorites!')
-
-        return
+        return toast.success('Character successfuly added to Favorites!')
       }
 
       return toast.warning('Character not added!')
@@ -84,7 +88,10 @@ export const CharContextProvider = ({ children }: CharContextProviderProps) => {
     <CharContext.Provider
       value={{
         handleFavoriteChar,
-        favoritesCharacters
+        favoritesCharacters,
+        favCount,
+        orderBy,
+        setOrderBy
       }}
     >
       {children}

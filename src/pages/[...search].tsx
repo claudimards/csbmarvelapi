@@ -80,8 +80,6 @@ const SearchResults: NextPage = () => {
             <TopToolbar
               title={`Search results for.: ${query}`}
               activeOrderBy={!!data.results.length}
-              handleOrderBy={handleOrderBy}
-              orderBy={orderBy}
             />
 
             <section className="container not-found">
@@ -100,13 +98,10 @@ const SearchResults: NextPage = () => {
             <TopToolbar
               title={`Search results for.: ${query}`}
               activeOrderBy={data.results.length > 1}
-              handleOrderBy={handleOrderBy}
-              orderBy={orderBy}
             />
 
             <HeroesList
               charListData={data.results}
-              orderBy={orderBy}
             />
 
             {data.offset < data.total && (
