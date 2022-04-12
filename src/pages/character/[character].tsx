@@ -78,22 +78,24 @@ const Hero: NextPage = () => {
           path: result.thumbnail.path,
           extension: result.thumbnail.extension
         },
-        comics: {
-          title: "Comics",
-          ...result.comics
-        },
-        events: {
-          title: "Events",
-          ...result.events
-        },
-        series: {
-          title: "Series",
-          ...result.series
-        },
-        stories: {
-          title: "Stories",
-          ...result.series
-        }
+        bioResume: [
+          {
+            title: "Comics",
+            ...result.comics
+          },
+          {
+            title: "Events",
+            ...result.events
+          },
+          { 
+            title: "Series",
+            ...result.series
+          },
+          {
+            title: "Stories",
+            ...result.series
+          }
+        ],
       }
     })
 
@@ -144,10 +146,7 @@ const Hero: NextPage = () => {
             />
 
             <HeroBio
-              comics={data?.char.comics}
-              events={data?.char.events}
-              series={data?.char.series}
-              stories={data?.char.stories}
+              bioResume={data?.char.bioResume}
             />
 
             {!!data?.events.length && (

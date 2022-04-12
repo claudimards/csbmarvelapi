@@ -1,56 +1,38 @@
 import { HeroSkill } from "../HeroSkill"
 import styles from "./styles.module.scss"
 
-type HeroSkillsListType = {
-  comics?: {
-    title: string;
-    available: number;
-  };
-  events?: {
-    title: string;
-    available: number;
-  };
-  series?: {
-    title: string;
-    available: number;
-  };
-  stories?: {
-    title: string;
-    available: number;
-  }
+type HeroSkillsItemType = {
+  title: string;
+  collectionURI: string;
+  available: number;
 }
 
-export const HeroSkillsList = ({ comics, events, series, stories }: HeroSkillsListType) => {
+type HeroSkillsListType = {
+  bioResume: [HeroSkillsItemType];
+}
+
+export const HeroSkillsList = ({ bioResume }: HeroSkillsListType) => {
+  
   return (
     <section className="container">
       <article className={`${styles.heroSkills} p1`}>
-        {!!comics?.available && (
-          <HeroSkill
-            skillPower={comics?.available}
-            skillName={comics?.title}
-          />
+
+        {!!bioResume.length && (
+          <>
+          {bioResume.map((bio: HeroSkillsItemType) => (
+            <>
+            {!!bio.available && (
+              <HeroSkill
+                key={bio.collectionURI}
+                skillPower={bio.available}
+                skillName={bio.title}
+              />
+            )}
+            </>
+          ))}
+          </>
         )}
 
-        {!!events?.available && (
-          <HeroSkill
-            skillPower={events?.available}
-            skillName={events?.title}
-          />
-        )}
-
-        {!!series?.available && (
-          <HeroSkill
-            skillPower={series?.available}
-            skillName={series?.title}
-          />
-        )}
-
-        {!!stories?.available && (
-          <HeroSkill
-            skillPower={stories?.available}
-            skillName={stories?.title}
-          />
-        )}
       </article>
     </section>
   )

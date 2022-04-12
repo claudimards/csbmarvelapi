@@ -1,41 +1,24 @@
 import { HeroSkillsList } from "../HeroSkillsList";
 import styles from "./styles.module.scss"
 
-type HeroBioType = {
-  comics?: {
-    title: string;
-    available: number;
-    items: [{
-      name: string;
-    }]
-  };
-  events?: {
-    title: string;
-    available: number;
-    items: [{
-      name: string;
-    }]
-  };
-  series?: {
-    title: string;
-    available: number;
-    items: [{
-      name: string;
-    }]
-  };
-  stories?: {
-    title: string;
-    available: number;
-    items: [{
-      name: string;
-    }]
-  }
+type BioItem = {
+  title: string;
+  available: number;
+  collectionURI: string;
+  items: [{
+    name: string;
+  }]
 }
 
-export const HeroBio = ({ comics, events, series, stories }: HeroBioType) => {
+type HeroBioType = {
+  bioResume: [BioItem];
+}
+
+export const HeroBio = ({ bioResume }: HeroBioType) => {
+  
   return (
     <>
-      <HeroSkillsList comics={comics} events={events} series={series} stories={stories} />
+      <HeroSkillsList bioResume={bioResume} />
 
       <section className="container">
         <article className={styles.heroBiograph}>
@@ -43,51 +26,25 @@ export const HeroBio = ({ comics, events, series, stories }: HeroBioType) => {
             <h2>Biography</h2>
           </aside>
 
-          <article className={styles.content}>
-            {!!comics?.items.length && (
-              <div>
-                <h4>Last {comics.title}</h4>
-                <blockquote>
-                  {comics.items.map(item => (
-                    <p key={item.name}>{item.name}</p>
-                  ))}
-                </blockquote>
-              </div>
-            )}
+          {!!bioResume.length && (
+            <section className={styles.content}>
+            {bioResume.map((bio: BioItem, index: number) => (
+              <>
+              {!!bio.available && (
+                <div key={`${bio.title}-${index}`}>
+                  <h4>Last {bio.title}</h4>
+                  <blockquote>
+                    {bio.items.map((item, index) => (
+                      <p key={`${item.name}-${index}`}>{item.name}</p>
+                    ))}
+                  </blockquote>
+                </div>
+              )}
+              </>
+            ))}
+            </section>
+          )}
 
-            {!!events?.items.length && (
-              <div>
-                <h4>Last {events.title}</h4>
-                <blockquote>
-                  {events.items.map(item => (
-                    <p key={item.name}>{item.name}</p>
-                  ))}
-                </blockquote>
-              </div>
-            )}
-
-            {!!series?.items.length && (
-              <div>
-                <h4>Last {series.title}</h4>
-                <blockquote>
-                  {series.items.map(item => (
-                    <p key={item.name}>{item.name}</p>
-                  ))}
-                </blockquote>
-              </div>
-            )}
-
-            {!!stories?.items.length && (
-              <div>
-                <h4>Last {stories.title}</h4>
-                <blockquote>
-                  {stories.items.map(item => (
-                    <p key={item.name}>{item.name}</p>
-                  ))}
-                </blockquote>
-              </div>
-            )}
-          </article>
         </article>
       </section>
     </>
