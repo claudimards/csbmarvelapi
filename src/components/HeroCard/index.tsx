@@ -34,9 +34,10 @@ export const HeroCard = ({ char }: Char) => {
             <figure>
               <Image
                 src={`${char.thumbnail.path}.${char.thumbnail.extension}`}
-                width="195"
-                height="210"
+                width={195}
+                height={210}
                 alt={char.name}
+                placeholder="blur"
               />
             </figure>
 

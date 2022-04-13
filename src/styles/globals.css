@@ -1,11 +1,18 @@
 :root {
   --red-50: #EC1D24;
   --black-50: #202020;
+  --title-font: 'Bebas Neue', cursive;
+  --text-font: 'Titillium Web', sans-serif;
 }
 
 html,
 body {
-  font-family: 'Bebas Neue', cursive, Helvetica Neue, sans-serif;
+  font-family: var(--text-font);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--title-font);
+  letter-spacing: 1.5px;
 }
 
 a {
@@ -26,9 +33,14 @@ input, button {
   border: 0;
 }
 
+input {
+  font-size: 12px;
+}
+
 button {
   cursor: pointer;
   line-height: 1;
+  padding: 0.605rem;
 }
 
 .container {

@@ -14,7 +14,7 @@ const Favorites: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Maverl | Favorites</title>
+        <title>Marvel | Favorites</title>
       </Head>
 
       <Header />

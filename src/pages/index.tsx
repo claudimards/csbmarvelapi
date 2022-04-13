@@ -36,7 +36,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Mavel Chars</title>
+        <title>Marvel Chars</title>
       </Head>
 
       <Header />
