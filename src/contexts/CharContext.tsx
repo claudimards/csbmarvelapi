@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 type Char = {
@@ -30,6 +30,16 @@ export const CharContextProvider = ({ children }: CharContextProviderProps) => {
   const [favoritesCharacters, setFavoritesCharacters] = useState<[] | Char[]>([])
   let favCount = favoritesCharacters?.length
 
+  // CHECK IF THERE IS A FAV LIST SAVED AT LOCALSTORAGE
+  useEffect(() => {
+    const hasSavedChars = localStorage.getItem('favCharList')
+
+    if (!!hasSavedChars) {
+      const parsedCharList = JSON.parse(hasSavedChars)
+
+      setFavoritesCharacters(parsedCharList)
+    }
+  }, [])
 
   // FUNCTION TO HANDLE FAVORITE CHARS
   const handleFavoriteChar = (char: Char) => {
@@ -52,6 +62,16 @@ export const CharContextProvider = ({ children }: CharContextProviderProps) => {
         })
 
         setFavoritesCharacters(newFavoritesChars)
+
+        /**
+         * IF THERE IS CHAR IN FAV LIST, UPDATE LOCALSTORAGE VALUE, OTHERWISE, DELETE IT
+         */
+        if (!newFavoritesChars.length) {
+          localStorage.removeItem('favCharList')
+        } else {
+          localStorage.setItem('favCharList', JSON.stringify(newFavoritesChars))
+        }
+        
         toast.success('Character successfuly removed')
 
         return
@@ -65,18 +85,12 @@ export const CharContextProvider = ({ children }: CharContextProviderProps) => {
       const confirmAnswer = confirm('Add character to Favorites?')
 
       if (confirmAnswer) {
-        setFavoritesCharacters(
-          (state) => {
-            return [
-              ...state,
-              {
-                ...char,
-                isFavorite: true
-              }
-            ]
-          }
-        )
+        const newFavoritesChars = [...favoritesCharacters, {...char, isFavorite: true}]
+        
+        setFavoritesCharacters(newFavoritesChars)
 
+        // SAVING FAV LIST TO LOCAL STORAGE
+        localStorage.setItem('favCharList', JSON.stringify(newFavoritesChars))
         return toast.success('Character successfuly added to Favorites!')
       }
 
