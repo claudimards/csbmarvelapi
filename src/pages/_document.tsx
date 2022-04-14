@@ -14,6 +14,7 @@ export default class MyDocument extends Document {
         <meta name='apple-mobile-web-app-status-bar-style' content='default' />
         <meta name='apple-mobile-web-app-title' content='Marvel PWA WebApp' />
         <meta name='description' content='Best Marvel PWA WebApp in the world' />
+        <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png"></link>
         <meta name='format-detection' content='telephone=no' />
         <meta name='mobile-web-app-capable' content='yes' />
         <meta name='msapplication-TileColor' content='#2B5797' />

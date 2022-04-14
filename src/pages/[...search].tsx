@@ -42,17 +42,12 @@ const SearchResults: NextPage = () => {
       return data
       
     } catch (error) {
-      alert(`Something went wrong!\nError.: ${error}`)  
+      alert(`Something went wrong!\n${error}`)
+      return router.push('/_offline')
     }
   }
 
   const { isLoading, isError, data } = useQuery([`${query}`, page], fetchSearch)
-
-  const [orderBy, setOrderBy] = useState('nameAsc')
-
-  const handleOrderBy = (orderType: string) => {
-    setOrderBy(orderType)
-  }
 
   return (
     <>

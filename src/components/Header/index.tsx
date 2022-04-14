@@ -19,7 +19,7 @@ export const Header = () => {
             <Link href="/">
               <a>
                 <span>Marvel</span>
-                <mark><IoShieldHalfOutline />Heroes</mark>
+                <mark><IoShieldHalfOutline />Chars</mark>
               </a>
             </Link>
           </h1>

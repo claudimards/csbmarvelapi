@@ -1,9 +1,10 @@
-import { useState } from 'react'
-import type { NextPage } from 'next'
 import Head from 'next/head'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
-import { api } from '../services/api'
+import type { NextPage } from 'next'
 
+import { api } from '../services/api'
 import { Header } from '../components/Header'
 import { TopToolbar } from '../components/TopToolbar'
 import { HeroesList } from '../components/HeroesList'
@@ -11,6 +12,7 @@ import { BottomToolbar } from '../components/BottomToolbar'
 import { Footer } from '../components/Footer'
 
 const Home: NextPage = () => {
+  const router = useRouter()
   const [offset, setOffset] = useState(0)
   const [page, setPage] = useState(1)
 
@@ -27,7 +29,8 @@ const Home: NextPage = () => {
       return data
       
     } catch (error) {
-      alert(`Something went wrong!\nError.: ${error}`)  
+      alert(`Something went wrong!\n${error}`)
+      return router.push('/_offline')
     }
   }
 
